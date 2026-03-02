@@ -1,0 +1,18 @@
+# Claude Code project folder
+.claude/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+venv/
+.venv/
+
+# macOS
+.DS_Store
+
+# Course documents (private/academic)
+MSE 546 Proposal Group 6.md
+MSE546__Project_Specifics__W26.pdf
