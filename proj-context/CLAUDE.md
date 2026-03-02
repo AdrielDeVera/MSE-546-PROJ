@@ -46,6 +46,17 @@ Single script `run.py` with 7 phases:
 ## Dependencies
 See `requirements.txt` — pandas, numpy, seaborn, matplotlib, scikit-learn.
 
+## .gitignore
+| Pattern | Reason |
+|---------|--------|
+| `.claude/` | Claude Code project folder |
+| `__pycache__/`, `*.pyc`, `*.pyo`, `*.pyd` | Python bytecode |
+| `.env` | Environment variables |
+| `venv/`, `.venv/` | Virtual environments |
+| `.DS_Store` | macOS metadata |
+| `MSE 546 Proposal Group 6.md` | Private course document |
+| `MSE546__Project_Specifics__W26.pdf` | Private course document |
+
 ## Key EDA Insights (from Proposal)
 - **CryoSleep**: Dominant predictor — passengers in suspended animation transported at >75% rate
 - **Age 0–5**: Non-linear spike in transport probability for toddlers vs. adults
