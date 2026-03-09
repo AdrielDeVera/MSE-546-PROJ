@@ -31,3 +31,24 @@ print(f"  Test  features shape: {X_test.shape}")
 print(f"  Target distribution:\n{y.value_counts().to_string()}")
 print(f"  Features ({X.shape[1]}): {list(X.columns)}")
 print("  ✓ Data loaded successfully!")
+
+# ============================================================================
+# [2/7] EDA — FEATURE CORRELATION WITH TARGET
+# ============================================================================
+
+print("\n[2/7] Generating EDA: feature correlation with target...")
+
+correlations = X.corrwith(y).abs().sort_values(ascending=False).head(20)
+
+plt.figure(figsize=(10, 7))
+correlations.sort_values().plot(kind='barh', color='#3B1E54')
+plt.xlabel('Absolute Correlation with Transported', fontsize=12)
+plt.title('Top 20 Features by Correlation with Target', fontsize=14, fontweight='bold')
+plt.tight_layout()
+plt.savefig('output/plot_m3_1_feature_correlation.png', dpi=300, bbox_inches='tight')
+plt.close()
+
+print("  Top 10 correlated features:")
+for feat, val in correlations.head(10).items():
+    print(f"    {feat:<35} {val:.4f}")
+print("  ✓ Saved output/plot_m3_1_feature_correlation.png")
