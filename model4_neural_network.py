@@ -40,3 +40,29 @@ print(f"  Target dist :\n{y.value_counts().to_string()}")
 print(f"\n  Scale cols  : {SCALE_COLS}")
 print(f"  Output dir  : {OUTPUT_DIR}/")
 print("  ✓ Data loaded successfully!")
+
+# ============================================================================
+# [2/7] EDA — SPENDING FEATURE DISTRIBUTIONS
+# ============================================================================
+
+print("\n[2/7] Generating EDA visualizations...")
+
+sns.set_theme(style="whitegrid")
+custom_palette = ["#3B1E54", "#D4BEE4"]
+
+plot_df = train.copy()
+plot_df['Transported'] = plot_df['Transported'].astype(str)
+
+print("  → Plot 1: Total_Spending KDE by Transported label")
+plt.figure(figsize=(12, 6))
+sns.kdeplot(data=plot_df, x='Total_Spending', hue='Transported', fill=True,
+            palette=custom_palette, alpha=0.6, linewidth=2)
+plt.title('Total Spending Distribution by Transport Status', fontsize=14, fontweight='bold')
+plt.xlabel('Total Spending', fontsize=12)
+plt.ylabel('Density', fontsize=12)
+plt.xlim(left=0)
+plt.tight_layout()
+plt.savefig(f'{OUTPUT_DIR}/plot_m4_1_spending_distribution.png', dpi=300, bbox_inches='tight')
+plt.close()
+
+print(f"  ✓ Saved → {OUTPUT_DIR}/plot_m4_1_spending_distribution.png")
