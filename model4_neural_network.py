@@ -78,3 +78,23 @@ X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_st
 print(f"  Training set  : {X_train.shape[0]} samples")
 print(f"  Validation set: {X_val.shape[0]} samples")
 print("  ✓ Split complete!")
+
+# ============================================================================
+# [4/7] SCALE NUMERICAL FEATURES
+# ============================================================================
+
+print("\n[4/7] Scaling numerical features (StandardScaler)...")
+
+# Fit only on train — no leakage
+scaler = StandardScaler()
+X_train = X_train.copy()
+X_val   = X_val.copy()
+X_test  = X_test_full.copy()
+
+X_train[SCALE_COLS] = scaler.fit_transform(X_train[SCALE_COLS])
+X_val[SCALE_COLS]   = scaler.transform(X_val[SCALE_COLS])
+X_test[SCALE_COLS]  = scaler.transform(X_test[SCALE_COLS])
+
+print(f"  Scaled {len(SCALE_COLS)} columns: {SCALE_COLS}")
+print(f"  X_train mean (Age): {X_train['Age'].mean():.4f}  std: {X_train['Age'].std():.4f}")
+print("  ✓ Scaling complete (fit on train only — no leakage)")
