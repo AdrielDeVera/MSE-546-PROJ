@@ -66,3 +66,15 @@ plt.savefig(f'{OUTPUT_DIR}/plot_m4_1_spending_distribution.png', dpi=300, bbox_i
 plt.close()
 
 print(f"  ✓ Saved → {OUTPUT_DIR}/plot_m4_1_spending_distribution.png")
+
+# ============================================================================
+# [3/7] TRAIN/VAL SPLIT
+# ============================================================================
+
+print("\n[3/7] Splitting data (80/20, random_state=42)...")
+
+X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)
+
+print(f"  Training set  : {X_train.shape[0]} samples")
+print(f"  Validation set: {X_val.shape[0]} samples")
+print("  ✓ Split complete!")
