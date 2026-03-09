@@ -124,3 +124,46 @@ model.fit(X_train, y_train)
 
 print(f"\n  Stopped after {model.n_iter_} iterations")
 print("  ✓ Training complete!")
+
+# ============================================================================
+# [6/7] EVALUATE + PLOTS
+# ============================================================================
+
+print("\n[6/7] Evaluating model performance...")
+
+y_train_pred = model.predict(X_train)
+y_val_pred   = model.predict(X_val)
+
+train_acc = accuracy_score(y_train, y_train_pred)
+val_acc   = accuracy_score(y_val, y_val_pred)
+
+print(f"\n  Training Accuracy  : {train_acc:.4f} ({train_acc*100:.2f}%)")
+print(f"  Validation Accuracy: {val_acc:.4f} ({val_acc*100:.2f}%)")
+print("\n  Classification Report (Validation Set):")
+print(classification_report(y_val, y_val_pred))
+
+# --- Confusion Matrix ---
+print("  → Plot 2: Confusion matrix")
+cm = confusion_matrix(y_val, y_val_pred)
+plt.figure(figsize=(8, 6))
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', cbar=False)
+plt.title('Confusion Matrix — Neural Network (Validation Set)', fontsize=14, fontweight='bold')
+plt.ylabel('Actual', fontsize=12)
+plt.xlabel('Predicted', fontsize=12)
+plt.tight_layout()
+plt.savefig(f'{OUTPUT_DIR}/plot_m4_2_confusion_matrix.png', dpi=300, bbox_inches='tight')
+plt.close()
+print(f"  ✓ Saved → {OUTPUT_DIR}/plot_m4_2_confusion_matrix.png")
+
+# --- Loss Curve ---
+print("  → Plot 3: Training loss curve")
+plt.figure(figsize=(10, 5))
+plt.plot(model.loss_curve_, color='#3B1E54', linewidth=2, label='Training Loss')
+plt.title('MLPClassifier Training Loss Curve', fontsize=14, fontweight='bold')
+plt.xlabel('Epoch', fontsize=12)
+plt.ylabel('Loss', fontsize=12)
+plt.legend()
+plt.tight_layout()
+plt.savefig(f'{OUTPUT_DIR}/plot_m4_3_loss_curve.png', dpi=300, bbox_inches='tight')
+plt.close()
+print(f"  ✓ Saved → {OUTPUT_DIR}/plot_m4_3_loss_curve.png")
