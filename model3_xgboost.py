@@ -89,3 +89,32 @@ model.fit(
 )
 
 print("  ✓ Training complete!")
+
+# ============================================================================
+# [5/7] EVALUATE
+# ============================================================================
+
+print("\n[5/7] Evaluating model performance...")
+
+y_train_pred = model.predict(X_train)
+y_val_pred   = model.predict(X_val)
+
+train_accuracy = accuracy_score(y_train, y_train_pred)
+val_accuracy   = accuracy_score(y_val,   y_val_pred)
+
+print(f"\n  Training Accuracy:   {train_accuracy:.4f} ({train_accuracy*100:.2f}%)")
+print(f"  Validation Accuracy: {val_accuracy:.4f} ({val_accuracy*100:.2f}%)")
+
+print("\n  Classification Report (Validation Set):")
+print(classification_report(y_val, y_val_pred))
+
+cm = confusion_matrix(y_val, y_val_pred)
+plt.figure(figsize=(8, 6))
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', cbar=False)
+plt.title('Confusion Matrix - Validation Set (XGBoost)', fontsize=14, fontweight='bold')
+plt.ylabel('Actual', fontsize=12)
+plt.xlabel('Predicted', fontsize=12)
+plt.tight_layout()
+plt.savefig('output/plot_m3_2_confusion_matrix.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("  ✓ Saved output/plot_m3_2_confusion_matrix.png")
