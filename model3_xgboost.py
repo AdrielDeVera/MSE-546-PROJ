@@ -64,3 +64,28 @@ X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_st
 print(f"  Training set:   {X_train.shape[0]} samples")
 print(f"  Validation set: {X_val.shape[0]} samples")
 print("  ✓ Split complete (test_size=0.2, random_state=42)")
+
+# ============================================================================
+# [4/7] TRAIN XGBOOST
+# ============================================================================
+
+print("\n[4/7] Training XGBoost classifier...")
+
+model = XGBClassifier(
+    n_estimators=500,
+    learning_rate=0.05,
+    max_depth=6,
+    subsample=0.8,
+    colsample_bytree=0.8,
+    eval_metric='logloss',
+    random_state=42,
+    n_jobs=-1
+)
+
+model.fit(
+    X_train, y_train,
+    eval_set=[(X_val, y_val)],
+    verbose=100
+)
+
+print("  ✓ Training complete!")
