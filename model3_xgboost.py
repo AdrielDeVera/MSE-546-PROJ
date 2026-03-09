@@ -52,3 +52,15 @@ print("  Top 10 correlated features:")
 for feat, val in correlations.head(10).items():
     print(f"    {feat:<35} {val:.4f}")
 print("  ✓ Saved output/plot_m3_1_feature_correlation.png")
+
+# ============================================================================
+# [3/7] TRAIN/VALIDATION SPLIT
+# ============================================================================
+
+print("\n[3/7] Splitting data into train/validation sets...")
+
+X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)
+
+print(f"  Training set:   {X_train.shape[0]} samples")
+print(f"  Validation set: {X_val.shape[0]} samples")
+print("  ✓ Split complete (test_size=0.2, random_state=42)")
