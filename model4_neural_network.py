@@ -167,3 +167,37 @@ plt.tight_layout()
 plt.savefig(f'{OUTPUT_DIR}/plot_m4_3_loss_curve.png', dpi=300, bbox_inches='tight')
 plt.close()
 print(f"  ✓ Saved → {OUTPUT_DIR}/plot_m4_3_loss_curve.png")
+
+# ============================================================================
+# [7/7] GENERATE SUBMISSION
+# ============================================================================
+
+print("\n[7/7] Generating submission file...")
+
+test_preds = model.predict(X_test).astype(bool)
+
+submission = pd.DataFrame({
+    'PassengerId': test_ids,
+    'Transported': test_preds
+})
+submission_path = f'{OUTPUT_DIR}/submission_model4_nn.csv'
+submission.to_csv(submission_path, index=False)
+
+print(f"  ✓ Saved → {submission_path}")
+print(f"  → {len(submission)} predictions generated")
+print(f"  → Transported=True : {test_preds.sum()}")
+print(f"  → Transported=False: {(~test_preds).sum()}")
+
+print("\n" + "=" * 80)
+print("EXECUTION COMPLETE!")
+print("=" * 80)
+print("\nFiles Generated:")
+print(f"  1. {OUTPUT_DIR}/plot_m4_1_spending_distribution.png")
+print(f"  2. {OUTPUT_DIR}/plot_m4_2_confusion_matrix.png")
+print(f"  3. {OUTPUT_DIR}/plot_m4_3_loss_curve.png")
+print(f"  4. {submission_path}")
+print("\nModel Performance:")
+print(f"  → Training Accuracy  : {train_acc*100:.2f}%")
+print(f"  → Validation Accuracy: {val_acc*100:.2f}%")
+print(f"  → Baseline (RF)      : 78.84%  |  Delta: +{(val_acc - 0.7884)*100:.2f}%")
+print("=" * 80)
