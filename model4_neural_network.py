@@ -98,3 +98,29 @@ X_test[SCALE_COLS]  = scaler.transform(X_test[SCALE_COLS])
 print(f"  Scaled {len(SCALE_COLS)} columns: {SCALE_COLS}")
 print(f"  X_train mean (Age): {X_train['Age'].mean():.4f}  std: {X_train['Age'].std():.4f}")
 print("  ✓ Scaling complete (fit on train only — no leakage)")
+
+# ============================================================================
+# [5/7] TRAIN MLPClassifier
+# ============================================================================
+
+print("\n[5/7] Training MLPClassifier (256→128→64, relu, adam)...")
+
+model = MLPClassifier(
+    hidden_layer_sizes=(256, 128, 64),
+    activation='relu',
+    solver='adam',
+    alpha=0.001,
+    batch_size=256,
+    learning_rate_init=0.001,
+    max_iter=500,
+    early_stopping=True,
+    validation_fraction=0.1,
+    n_iter_no_change=20,
+    random_state=42,
+    verbose=True
+)
+
+model.fit(X_train, y_train)
+
+print(f"\n  Stopped after {model.n_iter_} iterations")
+print("  ✓ Training complete!")
